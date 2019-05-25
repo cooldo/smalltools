@@ -25,6 +25,7 @@ print("Database Created")
 theCursor = db_conn.cursor()
 
 theCursor.execute("DROP TABLE IF EXISTS Employees")
+theCursor.execute("DROP TABLE IF EXISTS Employees_2")
 
 try:
 	theCursor.execute("""CREATE TABLE Employees(
@@ -135,3 +136,30 @@ with open('dump.sql','w') as f:
 db_conn.close()
 
 print("Database Closed")
+
+
+print("Database reopen")
+db_conn = sqlite3.connect('test.db')
+theCursor = db_conn.cursor()
+# add new table
+try:
+	print("Database add new table")
+	theCursor.execute("""CREATE TABLE Employees_2(
+					ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+					FName TEXT NOT NULL,
+					LName TEXT NOT NULL
+					);""")
+
+	db_conn.commit()
+except sqlite3.OperationalError:
+	print("Table cannot be created")
+
+print("copy old table to new table")
+theCursor.execute("""INSERT INTO Employees_2(
+					"FName", "LName"
+					)
+					SELECT "FName", "LName"
+					FROM Employees;
+					""")
+db_conn.commit()
+db_conn.close()
