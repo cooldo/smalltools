@@ -88,10 +88,13 @@ theCursor.execute("INSERT INTO Employees (ID,FName,LName,Age,Address,Salary,Hire
 #db_conn.commit()
 printDB()
 
+# rollback means before commit, you can cancel the last execution
 db_conn.rollback()
 printDB()
 
 try:
+	# sqlite only support add column, and it refuses to delete column
+	# if you want to delete a column, just create a new DB, and copy old data to it.
 	theCursor.execute("ALTER TABLE Employees ADD COLUMN 'Image' BLOB DEFAULT NULL")
 	db_conn.commit()
 
