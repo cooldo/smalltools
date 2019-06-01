@@ -11,8 +11,8 @@ TO=$(echo $INPUT | cut -d " " -f $COUNT)
 
 SERVER_58="gaoqiang@109.105.115.58:/home/gaoqiang/share"
 SERVER_63="gaoq@109.105.115.63:/home/ivi/gaoq/share"
-VM="samsung1@109.105.116.20:/media/sf_share/vbox"
-LO1="samsung@109.105.121.36:/home/share/share"
+VM="root@109.105.116.20:/media/sf_share/vbox"
+LO1="root@109.105.121.36:/home/share/share"
 
 case $TO in
     58) echo "cp to $SERVER_58"
