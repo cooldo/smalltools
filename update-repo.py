@@ -2,6 +2,7 @@
 
 #from selenium import webdriver
 #from selenium.webdriver.support.ui import WebDriverWait
+#from selenium.webdriver.common.keys import keys
 #import pyperclip
 
 #browser = webdriver.Firefox()
@@ -10,7 +11,10 @@
 #WebDriverWait(browser, 100).until(lambda browser:browser.find_element_by_id("qt-header"))
 #browser.find_element_by_xpath("/html/body/gr-app/main/gr-change-view/div[2]/section[2]/div/gr-file-list-header/div/div[2]/span[3]/gr-button").click()
 
-#browser.find_element_by_xpath("/html/body/gr-app/main/gr-change-view/gr-overlay[1]/gr-download-dialog/section[2]/gr-download-commands/div[2]/gr-shell-command[2]/div/gr-copy-clipboard/div/gr-button/paper-button").click()
+#user=browser.find_element_by_xpath("/html/body/gr-app/main/gr-change-view/gr-overlay[1]/gr-download-dialog/section[2]/gr-download-commands/div[2]/gr-shell-command[2]/div/gr-copy-clipboard/div/gr-button/paper-button").click()
+
+#browser.send_keys("XXXX")
+#browser.find_element_by_name("login").click()
 
 #print(pyperclip.paste())
 #browser.close()
