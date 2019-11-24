@@ -2,12 +2,72 @@
 
 import simplejson
 import re
+import os
 
 # get patch address from this command
 # ssh -p 29418 gao@gerrit.wikimedia.org  gerrit query --format=JSON  --format=JSON status:open project:mediawiki/extensions/Cite --current-patch-set
 input = r'input.txt'
 repofile = r'repo.txt'
 
+abs_path = os.path.split(os.path.realpath(__file__))[0]
+
+fetch_path = 'git fetch "ssh://{0}@gerrit.wikimedia.org:29418/{1}" {2} && git cherry-pick FETCH_HEAD'
+
+# run ./test.sh and generate repo.txt in current directory
+return_value = os.system(abs_path+'/test.sh')
+if (return_value != 0):
+	print("get remote repo failed")
+	exit(0)
+
+# dict content:
+# {
+# key(string): repo name
+# value(list): a list of commands needed to execute one by one
+# }
+
+dict = { \
+'meta-qt-source/center-console':
+['../../', 'asdfasfdasfd'],
+
+'meta-qt-source/discovery-hud':
+['../../','asdfasdf'],
+
+'meta-qt-source/rse-demo':
+['../../','asdfasdf'],
+
+'meta-qt-source/kria-cluster-2d':
+['../../','asdfasdf'],
+
+'discovery-qtappman':
+['../','asdfasdf'],
+
+'meta-samsung-discovery-baremetal':
+['../','asdfasdfasfd']
+}
+
+try:
+	with open(abs_path+input, 'r') as f:
+		for line in f:
+			url = line
+			patten = url
+			with open(abs_path+repofile, 'r') as repo:
+				for repoline in repo:
+					if (re.search(pattern, repoline) != None):
+						# found repo
+						json = simplejson.loads(repoline)
+						# get project name
+						project_name = json["project"]
+						print(project_name)
+						# get cherry pick addr
+						cherry_pick_addr = json["currentPatchSet"]["ref"]
+						for key in dict:
+							if project_name in key:
+								dict[key].append(fetch_path.format("gao", project_name, cherry_pick_addr)
+exceptIOError:
+	exit()
+
+
+with open(abs_path+'/update-repo.sh', 'w') as f:
 fetch_path = "git fetch \"ssh://{0}@gerrit.wikimedia.org:29418/{1}\" {2} && git cherry-pick FETCH_HEAD"
 
 
