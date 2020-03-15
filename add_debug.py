@@ -6,7 +6,18 @@ import re
 
 # For QT log
 LOG_STRING="    qDebug() << Q_FUNC_INFO;\n"
+# For weston log
+#LOG_STRING="    weston_log(\"%s\\n\", __func__);\n"
+# For common
+#LOG_STRING="    fprintf(stderr,\"%s\\n\", __func___);\n"
 
+
+# This function cannot be used becuase of the following
+# function name cannot be recognized
+# void function(int32_t x, int32_t y
+#      int32_t x, int32_t y)
+# {
+# }
 # Check () or ( * )
 parenthese_pattern=(r'\(.*\)')
 def check_the_start_of_function(line):
@@ -35,8 +46,8 @@ for index in range(len(sys.argv)):
 		single_line = line_list[index]
 		new_list.append(single_line)
 		if single_line.rstrip() is '{':
-			if check_the_start_of_function(line_list[index-1]):
-				new_list.append(LOG_STRING)
+			#if check_the_start_of_function(line_list[index-1]):
+			new_list.append(LOG_STRING)
 
 
 	with open(new_file, 'w') as f:
