@@ -1,4 +1,5 @@
 #!/bin/bash
+# backup .bash_history to .bash_history_archive
 umask 077
 max_lines=10000
 

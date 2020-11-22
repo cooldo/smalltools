@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# remove duplicated bash_history
 import os
 import shutil
 history = os.path.expandvars('$HOME') + '/.bash_history'
