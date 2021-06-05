@@ -1,0 +1,2 @@
+# debug
+GST_DEBUG="*:5" gst-launch-1.0 -v audiotestsrc ! audioconvert ! autoaudiosink
